@@ -80,26 +80,39 @@ class _CreateCampaignState extends State<CreateCampaign> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: padding),
-            child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: cap.getListNote
-                    .map(
-                      (e) => Card(
-                        child: Container(
-                          padding: const EdgeInsets.all(padding / 2),
-                          color: Colors.blue,
-                          child: Center(
-                            child: buildText(
-                              text: e,
-                              size: 18.0,
-                              color: Colors.white,
-                              weight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList()),
+            child: (cap.getListNote != null)
+                ? Container(
+                    width: double.infinity,
+                    height: 60,
+                    color: appBarColor,
+                    child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: cap.getListNote
+                            .map(
+                              (e) => Card(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                child: Container(
+                                  padding: const EdgeInsets.all(padding / 2),
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
+                                  child: Center(
+                                    child: buildText(
+                                      text: e,
+                                      size: 18.0,
+                                      color: textColor,
+                                      weight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList()),
+                  )
+                : Container(),
           ),
           buildText(
             text: 'Nội dung',
