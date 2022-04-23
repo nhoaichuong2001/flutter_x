@@ -50,7 +50,7 @@ class _PaymentState extends State<Payment> {
                   ],
                 ),
                 InkWell(
-                  onTap: () => _showModalBottom(context),
+                  onTap: () => _showModalBottom(context, isCheck),
                   child: Container(
                     height: 40,
                     width: 110,
@@ -76,7 +76,7 @@ class _PaymentState extends State<Payment> {
     );
   }
 
-  Future<dynamic> _showModalBottom(BuildContext context) {
+  Future<dynamic> _showModalBottom(BuildContext context, isCheck) {
     return showModalBottomSheet(
         context: context,
         builder: (context) {

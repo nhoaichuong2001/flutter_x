@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/views/campaign/main_compaign.dart';
 import 'package:my_app/views/user/user.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const UserPage(),
+      home: const MainCampaign(),
     );
   }
 }
