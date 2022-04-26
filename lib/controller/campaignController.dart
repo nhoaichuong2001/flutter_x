@@ -5,20 +5,20 @@ class CampaignController with ChangeNotifier {
   int page = 0;
   List<String> lstNote = [];
   final List<Campaign> lst = [
-    Campaign(
-      name: 'Chiến dịch chống mỹ',
-      note: ['Duy trì', 'Bảo dưỡng'],
-      quantity: 3,
-      dateTime: '10/10/2021',
-      status: 'Đang khởi chạy',
-    ),
-    Campaign(
-      name: 'Chiến dịch chống pháp',
-      note: ['Duy trì', 'Bảo dưỡng'],
-      quantity: 4,
-      dateTime: '21/10/2021',
-      status: 'Đang chuẩn bị',
-    ),
+    // Campaign(
+    //   name: 'Chiến dịch chống mỹ',
+    //   note: ['Duy trì', 'Bảo dưỡng'],
+    //   quantity: 3,
+    //   dateTime: '10/10/2021',
+    //   status: 'Đang khởi chạy',
+    // ),
+    // Campaign(
+    //   name: 'Chiến dịch chống pháp',
+    //   note: ['Duy trì', 'Bảo dưỡng'],
+    //   quantity: 4,
+    //   dateTime: '21/10/2021',
+    //   status: 'Đang chuẩn bị',
+    // ),
   ];
   List<Campaign> get getList => lst;
   List<String> get getListNote => lstNote;
@@ -35,6 +35,11 @@ class CampaignController with ChangeNotifier {
 
   void createCampaign(Campaign cap) {
     lst.add(cap);
+    lstNote = [];
+    notifyListeners();
+  }
+
+  void removeALNote() {
     lstNote = [];
     notifyListeners();
   }

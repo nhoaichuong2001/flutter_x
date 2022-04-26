@@ -30,162 +30,167 @@ class _CreateCampaignState extends State<CreateCampaign> {
     CampaignController cap = Provider.of<CampaignController>(context);
     return Form(
       key: _fomKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildText(
-            text: 'Tên chiến dịch',
-            size: 20.0,
-            color: textColor,
-            weight: FontWeight.bold,
-          ),
-          _input(
-            w: double.infinity,
-            h: 50.0,
-            text: 'Tên....',
-            controller: nameCampaignController,
-          ),
-          buildText(
-            text: 'Số lượng mail cần gửi',
-            size: 22.0,
-            color: textColor,
-            weight: FontWeight.bold,
-          ),
-          _input(
-            w: double.infinity,
-            h: 50.0,
-            text: 'Số lượng...',
-            controller: numberController,
-            typeKeyboard: TextInputType.number,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              buildText(
-                text: 'Note',
-                size: 22.0,
-                color: textColor,
-                weight: FontWeight.bold,
-              ),
-              InkWell(
-                onTap: () => _showModalBottom(context, noteController, cap),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: padding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildText(
+              text: 'Tên chiến dịch',
+              size: 20.0,
+              color: textColor,
+              weight: FontWeight.bold,
+            ),
+            _input(
+              w: double.infinity,
+              h: 50.0,
+              text: 'Tên....',
+              controller: nameCampaignController,
+            ),
+            buildText(
+              text: 'Số lượng mail cần gửi',
+              size: 22.0,
+              color: textColor,
+              weight: FontWeight.bold,
+            ),
+            _input(
+              w: double.infinity,
+              h: 50.0,
+              text: 'Số lượng...',
+              controller: numberController,
+              typeKeyboard: TextInputType.number,
+            ),
+            buildText(
+              text: 'Note',
+              size: 22.0,
+              color: textColor,
+              weight: FontWeight.bold,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: padding),
+              child: (cap.getListNote != null)
+                  ? InkWell(
+                      onTap: () =>
+                          _showModalBottom(context, noteController, cap),
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: appBarColor.withOpacity(1),
+                          boxShadow: [
+                            BoxShadow(
+                              color: textColor.withOpacity(0.3),
+                              blurRadius: 3.0,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: cap.getListNote
+                                .map(
+                                  (e) => Card(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0))),
+                                    child: Container(
+                                      padding:
+                                          const EdgeInsets.all(padding / 2),
+                                      decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      child: Center(
+                                        child: buildText(
+                                          text: e,
+                                          size: 18.0,
+                                          color: textColor,
+                                          weight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList()),
+                      ),
+                    )
+                  : Container(),
+            ),
+            buildText(
+              text: 'Nội dung',
+              size: 20.0,
+              color: textColor,
+              weight: FontWeight.bold,
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: padding),
+              decoration: BoxDecoration(
+                  color: appBarColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: textColor.withOpacity(0.3),
+                      blurRadius: 3.0,
+                      offset: const Offset(0, 3),
+                    )
+                  ],
+                  borderRadius: const BorderRadius.all(Radius.circular(15.0))),
+              child: TextFormField(
+                  maxLines: 5,
+                  style: const TextStyle(
+                    fontSize: 20.0,
+                    color: textColor,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.all(padding / 2 + 5),
+                    disabledBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                    suffixStyle: TextStyle(
+                      color: textColor,
+                    ),
+                    errorMaxLines: 2,
+                    errorStyle: TextStyle(fontSize: 18),
+                    hintText: 'Nội dung',
+                    hintStyle: TextStyle(
+                      fontSize: 20.0,
+                      color: subTextColor,
+                    ),
+                  ),
+                  // ignore: missing_return
+                  validator: (value) {
+                    if (value.isEmpty) return 'Không được bỏ trống';
+                  }),
+            ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  cap.createCampaign(Campaign(
+                    content: contentController.text,
+                    name: nameCampaignController.text,
+                    dateTime: '23/04/2022',
+                    quantity: int.parse(numberController.text),
+                    status: 'Đang chuẩn bị',
+                    note: cap.getListNote,
+                  ));
+                  nameCampaignController.text = '';
+                  numberController.text = '';
+                  contentController.text = '';
+                },
                 child: buildText(
-                  text: 'Tạo note',
-                  size: 22.0,
-                  color: Colors.blue,
+                  text: 'Xác nhận',
+                  size: 20.0,
+                  color: Colors.white,
                   weight: FontWeight.bold,
                 ),
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: padding),
-            child: (cap.getListNote != null)
-                ? Container(
-                    width: double.infinity,
-                    height: 60,
-                    color: appBarColor,
-                    child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: cap.getListNote
-                            .map(
-                              (e) => Card(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                child: Container(
-                                  padding: const EdgeInsets.all(padding / 2),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
-                                  child: Center(
-                                    child: buildText(
-                                      text: e,
-                                      size: 18.0,
-                                      color: textColor,
-                                      weight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList()),
-                  )
-                : Container(),
-          ),
-          buildText(
-            text: 'Nội dung',
-            size: 20.0,
-            color: textColor,
-            weight: FontWeight.bold,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: padding),
-            decoration: BoxDecoration(
-                color: appBarColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: textColor.withOpacity(0.3),
-                    blurRadius: 3.0,
-                    offset: const Offset(0, 3),
-                  )
-                ],
-                borderRadius: const BorderRadius.all(Radius.circular(15.0))),
-            child: TextFormField(
-                maxLines: 5,
-                style: const TextStyle(
-                  fontSize: 20.0,
-                  color: textColor,
-                ),
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(padding / 2 + 5),
-                  disabledBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  focusedErrorBorder: InputBorder.none,
-                  suffixStyle: TextStyle(
-                    color: textColor,
-                  ),
-                  errorMaxLines: 2,
-                  errorStyle: TextStyle(fontSize: 18),
-                  hintText: 'Nội dung',
-                  hintStyle: TextStyle(
-                    fontSize: 20.0,
-                    color: subTextColor,
-                  ),
-                ),
-                // ignore: missing_return
-                validator: (value) {
-                  if (value.isEmpty) return 'Không được bỏ trống';
-                }),
-          ),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                cap.createCampaign(Campaign(
-                  content: contentController.text,
-                  name: nameCampaignController.text,
-                  dateTime: '23/04/2022',
-                  quantity: int.parse(numberController.text),
-                  status: 'Đang chuẩn bị',
-                  note: cap.getListNote,
-                ));
-                nameCampaignController.text = '';
-                numberController.text = '';
-                contentController.text = '';
-              },
-              child: buildText(
-                text: 'Xác nhận',
-                size: 20.0,
-                color: Colors.white,
-                weight: FontWeight.bold,
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

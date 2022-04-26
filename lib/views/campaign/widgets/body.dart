@@ -29,7 +29,7 @@ class _BodyMainCampaignState extends State<BodyMainCampaign> {
       width: double.infinity,
       height: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.all(padding),
+        padding: const EdgeInsets.symmetric(vertical: padding),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +47,7 @@ class _BodyMainCampaignState extends State<BodyMainCampaign> {
                   onTap: (index) {
                     setState(() {
                       selectedIndex = index;
+                      cap.removeALNote();
                     });
                   },
                   indicatorColor: appBarColor,
@@ -65,9 +66,10 @@ class _BodyMainCampaignState extends State<BodyMainCampaign> {
                         child: Center(
                           child: buildText(
                             text: 'Danh sách',
-                            size: 19.0,
+                            size: 18.0,
                             color:
                                 (selectedIndex == 0) ? Colors.white : textColor,
+                            weight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -75,7 +77,7 @@ class _BodyMainCampaignState extends State<BodyMainCampaign> {
                     Tab(
                       child: Container(
                         padding:
-                            const EdgeInsets.symmetric(horizontal: padding),
+                            const EdgeInsets.symmetric(horizontal: padding / 2),
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         decoration: BoxDecoration(
@@ -88,9 +90,10 @@ class _BodyMainCampaignState extends State<BodyMainCampaign> {
                         child: Center(
                           child: buildText(
                             text: 'Thêm chiến dịch',
-                            size: 19.0,
+                            size: 18.0,
                             color:
                                 (selectedIndex == 1) ? Colors.white : textColor,
+                            weight: FontWeight.bold,
                           ),
                         ),
                       ),

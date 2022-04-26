@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/views/campaign/main_compaign.dart';
-import 'package:my_app/views/user/user.dart';
 
 void main() {
   runApp(const MyApp());
